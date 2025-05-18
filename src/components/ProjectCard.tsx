@@ -1,4 +1,7 @@
+"use client";
+
 import Image from "next/image";
+import { useState } from "react";
 
 type ProjectCardProps = {
   title: string;
@@ -7,15 +10,23 @@ type ProjectCardProps = {
   link?: string;
 };
 
-export default function ProjectCard({ title, description, imageUrl, link }: ProjectCardProps) {
+export default function ProjectCard({
+  title,
+  description,
+  imageUrl,
+  link,
+}: ProjectCardProps) {
+  const [imgSrc, setImgSrc] = useState(imageUrl);
+
   return (
     <div className="rounded-lg overflow-hidden shadow-md border border-gray-200 dark:border-gray-700">
       <div className="relative w-full h-56">
         <Image
-          src={imageUrl}
+          src={imgSrc}
           alt={title}
           fill
           className="object-cover"
+          onError={() => setImgSrc("/image-fallback.png")}
         />
       </div>
       <div className="p-5">

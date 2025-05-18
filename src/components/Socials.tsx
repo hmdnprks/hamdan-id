@@ -10,7 +10,7 @@ export default function SocialCTA() {
 
       <div className="flex justify-center gap-6 text-primary">
         <a
-          href="https://github.com/yourusername"
+          href="https://github.com/hmdnprks"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="GitHub"
@@ -19,7 +19,7 @@ export default function SocialCTA() {
           <GitHub size={24} />
         </a>
         <a
-          href="https://linkedin.com/in/yourusername"
+          href="https://linkedin.com/in/hamdanprakoso"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="LinkedIn"
@@ -28,7 +28,7 @@ export default function SocialCTA() {
           <Linkedin size={24} />
         </a>
         <a
-          href="https://x.com/hmdnprks"
+          href="https://x.com/htreeve"
           target="_blank"
           rel="noopener noreferrer"
           aria-label="Twitter"
