@@ -1,13 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getPostBySlug } from "@/lib/getMdxPost";
 import fs from "fs/promises";
 import path from "path";
 
-type PageProps = {
-  params: {
-    slug: string;
-  };
-};
-export default async function BlogPostPage({ params }: PageProps) {
+export default async function BlogPostPage({ params }: any) {
   const { content, frontmatter } = await getPostBySlug(params.slug);
 
   return (
@@ -23,8 +19,8 @@ export async function generateStaticParams() {
   const files = await fs.readdir(path.join(process.cwd(), "src", "content"));
 
   return files
-    .filter((file: string) => file.endsWith(".mdx"))
-    .map((file: string) => ({
+    .filter((file) => file.endsWith(".mdx"))
+    .map((file) => ({
       slug: file.replace(/\.mdx$/, ""),
     }));
 }
