@@ -14,8 +14,18 @@
   --muted: #5C5C5C;
   /* subtle text */
   --font-sans: var(--font-justsans), var(--font-poppins), sans-serif;
+  /* --font-justsans: "JustSans";
+  --font-poppins: "Poppins"; */
 
-
+  --shiki-color-text: #d6deeb;
+  --shiki-color-background: #011627;
+  --shiki-token-constant: #82aaff;
+  --shiki-token-string: #ecc48d;
+  --shiki-token-comment: #637777;
+  --shiki-token-keyword: #c792ea;
+  --shiki-token-function: #82aaff;
+  --shiki-token-parameter: #addb67;
+  --shiki-token-punctuation: #abb2bf;
 }
 
 @theme inline {
@@ -27,7 +37,9 @@
   --color-muted: var(--muted);
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
-
+  --font-jakarta-sans: var(--font-jakarta-sans);
+  --font-melangit-sans: var(--font-melangit-sans);
+  --font-pogonia-sans: var(--font-pogonia-sans);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -44,4 +56,45 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
+}
+
+[data-rehype-pretty-code-fragment] pre {
+  padding: 1.25rem;
+  overflow-x: auto;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+}
+
+[data-rehype-pretty-code-title] {
+  background-color: #1e1e1e;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  margin-bottom: -0.5rem;
+}
+
+[data-highlighted-line] {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-line] {
+  display: block;
+  padding: 0 1rem;
+  white-space: pre;
+}
+
+.font-justsans {
+  font-family: var(--font-justsans), sans-serif;
+}
+
+.font-poppins {
+  font-family: var(--font-poppins), sans-serif;
+}
+
+.font-geist {
+  font-family: var(--font-geist-sans), sans-serif;
 }

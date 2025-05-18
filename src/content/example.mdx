@@ -1,26 +1,17 @@
-✅ This file:
-- Has valid frontmatter (`---`)
-- Uses fenced code block with correct backticks and language
-- Contains only standard Markdown and basic JSX-compatible MDX
-
+---
+title: "Using Shiki with rehype-pretty-code"
+description: "Learn how to add beautiful, VS Code-themed code blocks to your MDX blog using rehype-pretty-code."
+date: "2025-05-18"
 ---
 
-## ⚠️ Common Mistakes That Cause This Error
+# Using Shiki with rehype-pretty-code
 
-| Problem | Fix |
-|--------|-----|
-| Using `{{ }}` for interpolation like in Vue or Liquid | ❌ Not valid in MDX |
-| Unclosed tags like `<div>` | ✅ Must be proper JSX |
-| Extra indents before frontmatter (`---`) | ✅ Start at the top with no spaces |
-| Mixing JS inside Markdown (e.g., `if () {}`) | ✅ Wrap logic in components if needed |
+One of the best ways to render code in your blog is by using `rehype-pretty-code`, which wraps Shiki and gives you access to VS Code themes, line highlighting, word highlights, and more.
 
----
+Let's say you want to render a TypeScript function:
 
-## ✅ If You Want JSX Inside
-
-You can do this **only if the JSX is valid:**
-
-```mdx
-<div className="custom-block">
-  <p>This is a valid JSX element inside MDX.</p>
-</div>
+```ts {title=greet.ts highlight=2}
+export const greet = (name: string) => {
+  return `Hello, ${name}`;
+};
+```

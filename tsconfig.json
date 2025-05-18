@@ -24,10 +24,13 @@
     ],
     "paths": {
       "@/lib/*": [
-        "./src/app/lib/*"
+        "./src/lib/*"
       ],
       "@/content/*": [
         "./src/content/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
       ]
     }
   },

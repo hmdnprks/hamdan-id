@@ -1,0 +1,32 @@
+---
+title: "Power of MDX with Code and Components"
+description: "A post that demonstrates combining Markdown, React components, and syntax-highlighted code in one file."
+date: "2025-05-18"
+---
+
+# The Power of MDX
+
+MDX allows you to write Markdown _and_ use React components in the same file. This gives you the ability to mix prose with interactive UI.
+
+---
+
+## 💡 Callout: Embedded Component
+
+Let’s render a custom component here:
+
+<Callout type="info" title="MDX + React FTW">
+  You can embed any React component inside MDX.
+</Callout>
+
+---
+
+## 🧑‍💻 Syntax Highlighting with Shiki
+
+With `rehype-pretty-code`, you get beautifully themed VS Code-style syntax highlighting:
+
+```tsx {title="Hello.tsx" highlight=2}
+type Props = { name: string }
+
+export default function Hello({ name }: Props) {
+  return <p>Hello, {name}!</p>
+}
