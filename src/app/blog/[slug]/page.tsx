@@ -1,7 +1,13 @@
 import { getPostBySlug } from "@/lib/getMdxPost";
 import fs from "fs/promises";
 import path from "path";
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+
+type PageProps = {
+  params: {
+    slug: string;
+  };
+};
+export default async function BlogPostPage({ params }: PageProps) {
   const { content, frontmatter } = await getPostBySlug(params.slug);
 
   return (
