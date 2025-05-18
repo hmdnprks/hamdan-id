@@ -1,4 +1,4 @@
-import BlogSidebar from "../BlogSidebar/BlogSidebar";
+import BlogSidebar from "./BlogSidebar";
 
 export default function BlogLayout({ children }: { children: React.ReactNode }) {
   return (

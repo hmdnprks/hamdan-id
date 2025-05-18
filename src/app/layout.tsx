@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { Poppins, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { Providers } from "@/components/Providers";
 
 // Load JustSans locally
 const justSans = localFont({
@@ -153,7 +154,11 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${justSans.variable} ${poppins.variable} ${jetbrainsMono.variable} ${plusJakartaSans.variable} ${melangitSans.variable} ${pogoniaSans.variable}`}>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans antialiased">
+        <Providers>
+          {children}
+        </Providers>
+      </body>
     </html>
   );
 }
