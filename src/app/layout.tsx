@@ -145,7 +145,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "hamdan.id",
+  title: "Hamdan's Site",
   description: "Personal site of Hamdan Prakoso",
 };
 
