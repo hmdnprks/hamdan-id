@@ -1,17 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import LikeButton from "@/components/atomic/LikeButton";
 import GiscusComments from "@/components/GiscusComments";
 import { getPostBySlug } from "@/lib/getMdxPost";
 import fs from "fs/promises";
 import path from "path";
 
-type PageProps = {
-  params: {
-    category: string;
-    slug: string;
-  };
-};
-
-export default async function BlogPostPage({ params }: PageProps) {
+export default async function BlogPostPage({ params }: any) {
   const { category, slug } = params;
   const { content, frontmatter } = await getPostBySlug(category, slug);
 

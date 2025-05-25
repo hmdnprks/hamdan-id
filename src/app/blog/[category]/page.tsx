@@ -2,7 +2,8 @@ import BlogCard from "@/components/BlogCard";
 import { notFound } from "next/navigation";
 import { getPostsByCategory } from "@/lib/getPostsByCategory";
 
-export default async function BlogCategoryPage({ params }: { params: { category: string } }) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export default async function BlogCategoryPage({ params }: any) {
   const posts = await getPostsByCategory(params.category);
 
   if (!posts.length) notFound();
