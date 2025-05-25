@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { Moon, Sun } from "lucide-react";
+import { Moon, Sun, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
 
@@ -18,6 +18,7 @@ export default function Header() {
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const isDark = theme === "dark";
 
   useEffect(() => setMounted(true), []);
@@ -40,7 +41,8 @@ export default function Header() {
         hamdan.id
       </Link>
 
-      <nav className="relative flex items-center gap-6 text-sm">
+      {/* Desktop Nav */}
+      <nav className="hidden sm:flex relative items-center gap-6 text-sm">
         {navLinks.map(({ href, label }) => {
           const isActive = pathname === href || pathname.startsWith(href + "/");
 
@@ -55,7 +57,6 @@ export default function Header() {
               >
                 {label}
               </Link>
-
               {isActive && (
                 <motion.svg
                   layoutId="scribble-highlight"
@@ -86,7 +87,7 @@ export default function Header() {
           <button
             onClick={toggleSwitch}
             aria-label="Toggle Theme"
-            className="ml-4 relative w-9 h-9 flex items-center justify-center hover:bg-muted/10 rounded transition-colors"
+            className="ml-4 relative w-9 h-9 flex items-center justify-center hover:bg-muted/10 rounded transition-colors cursor-pointer"
           >
             <AnimatePresence mode="wait" initial={false}>
               {isDark ? (
@@ -116,6 +117,88 @@ export default function Header() {
           </button>
         )}
       </nav>
+
+      {/* Mobile Nav Toggle */}
+      <button
+        className="sm:hidden p-2 rounded hover:bg-muted/10 transition z-50"
+        onClick={() => setMenuOpen(!menuOpen)}
+        aria-label="Toggle Mobile Menu"
+      >
+        {menuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+      </button>
+
+      {/* Mobile Overlay */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.3 }}
+            className="sm:hidden fixed inset-0 bg-background z-40 px-6 py-20 flex flex-col gap-6 items-start"
+          >
+            {navLinks.map(({ href, label }) => (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setMenuOpen(false)}
+                className="text-lg font-semibold hover:text-primary transition"
+              >
+                {label}
+              </Link>
+            ))}
+
+            <div className="mt-6 flex items-start flex-col gap-3">
+              <span className="text-lg font-semibold text-muted transition">Switch Theme</span>
+
+              <button
+                onClick={toggleSwitch}
+                aria-label="Toggle Theme"
+                className="relative w-16 h-10 rounded-full bg-muted/20 flex items-center px-1 transition-colors"
+              >
+                {/* Toggle knob container (optional background) */}
+                <motion.div
+                  layout
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  className="absolute w-full h-full rounded-full"
+                />
+
+                {/* Toggle knob */}
+                <motion.div
+                  layout
+                  animate={{ x: isDark ? 24 : 0 }} // move right if dark
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  className="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white z-10"
+                >
+                  <AnimatePresence mode="wait" initial={false}>
+                    {isDark ? (
+                      <motion.div
+                        key="moon"
+                        initial={{ opacity: 0, rotate: -90 }}
+                        animate={{ opacity: 1, rotate: 0 }}
+                        exit={{ opacity: 0, rotate: 90 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <Moon className="w-[16px] h-[16px]" />
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="sun"
+                        initial={{ opacity: 0, rotate: 90 }}
+                        animate={{ opacity: 1, rotate: 0 }}
+                        exit={{ opacity: 0, rotate: -90 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <Sun className="w-[16px] h-[16px]" />
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
