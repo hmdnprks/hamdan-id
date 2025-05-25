@@ -3,15 +3,16 @@ import Image from "next/image";
 type BlogCardProps = {
   title: string;
   slug: string;
+  category: string;
   coverImage: string;
   date: string;
   excerpt: string;
 };
 
-export default function BlogCard({ title, slug, coverImage, date, excerpt }: BlogCardProps) {
+export default function BlogCard({ title, slug, category, coverImage, date, excerpt }: BlogCardProps) {
   return (
     <a
-      href={`/blog/${slug}`}
+      href={`/blog/${category}/${slug}`}
       className="block rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-all bg-white dark:bg-surface"
     >
       <div className="relative w-full h-48">
