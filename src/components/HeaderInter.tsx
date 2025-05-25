@@ -7,15 +7,16 @@ import { useTheme } from "next-themes";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
+import Image from "next/image";
 
 const navLinks = [
-  { href: "/about", label: "About" },
-  { href: "/blog", label: "Blog" },
-  { href: "/projects", label: "Projects" },
-  { href: "/life", label: "Life" },
+  { href: "/", label: "Home" },
+  { href: "/life/inter/blog", label: "Blog" },
+  { href: "/life/inter/matches", label: "Matches" },
+  { href: "/life/inter/achievements", label: "Achievements" },
 ];
 
-export default function Header() {
+export default function HeaderInter() {
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
@@ -38,8 +39,8 @@ export default function Header() {
 
   return (
     <header className="w-full px-6 py-4 flex justify-between items-center border-b border-gray-200 dark:border-gray-800 relative z-50">
-      <Link href="/" className="text-lg font-semibold tracking-tight">
-        hamdan.id
+      <Link href="/life/inter" className="text-lg font-semibold tracking-tight">
+        <Image src="/hamdanxinter.png" alt="Logo Hamdan Inter" width={120} height={40} />
       </Link>
 
       {/* Desktop Nav */}
