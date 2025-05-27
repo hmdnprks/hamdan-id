@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url><loc>https://hamdan.id/under-maintenance</loc><lastmod>2025-05-27T17:49:28.968Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://hamdan.id/life/inter/blog</loc><lastmod>2025-05-27T17:49:28.969Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://hamdan.id/life/inter/matches</loc><lastmod>2025-05-27T17:49:28.969Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://hamdan.id/life/inter</loc><lastmod>2025-05-27T17:49:28.969Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://hamdan.id/life/inter/achievements</loc><lastmod>2025-05-27T17:49:28.969Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://hamdan.id</loc><lastmod>2025-05-27T17:49:28.969Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://hamdan.id/life</loc><lastmod>2025-05-27T17:49:28.969Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://hamdan.id/blog</loc><lastmod>2025-05-27T17:49:28.969Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://hamdan.id/blog/dev/mdx-features</loc><lastmod>2025-05-27T17:49:28.969Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://hamdan.id/blog/general/example</loc><lastmod>2025-05-27T17:49:28.969Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+</urlset>

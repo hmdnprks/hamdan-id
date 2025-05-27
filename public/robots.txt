@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://hamdan.id
+
+# Sitemaps
+Sitemap: https://hamdan.id/sitemap.xml
