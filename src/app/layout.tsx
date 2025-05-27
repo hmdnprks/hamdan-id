@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { Poppins, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
+import Umami from "@/components/analytics/Umami";
 
 // Load JustSans locally
 const justSans = localFont({
@@ -155,6 +156,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${justSans.variable} ${poppins.variable} ${jetbrainsMono.variable} ${plusJakartaSans.variable} ${melangitSans.variable} ${pogoniaSans.variable}`}>
       <body className="font-sans antialiased">
+        <Umami />
         <Providers>
           {children}
         </Providers>
