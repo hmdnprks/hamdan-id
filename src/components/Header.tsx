@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { Moon, Sun, Menu, X } from "lucide-react";
+import { Moon, Sun, Menu, X, Rss } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
 
@@ -84,11 +84,26 @@ export default function Header() {
           );
         })}
 
+        <Link
+          href="/rss.xml"
+          target="_blank"
+          aria-label="RSS Feed"
+          className="relative w-9 h-9 flex items-center justify-center hover:bg-muted/10 rounded transition-colors cursor-pointer"
+        >
+          <motion.div
+            initial={{ rotate: 0 }}
+            whileHover={{ rotate: 20 }}
+            transition={{ type: "spring", stiffness: 200, damping: 10 }}
+          >
+            <Rss className="w-5 h-5 text-orange-500 dark:text-orange-400" />
+          </motion.div>
+        </Link>
+
         {mounted && (
           <button
             onClick={toggleSwitch}
             aria-label="Toggle Theme"
-            className="ml-4 relative w-9 h-9 flex items-center justify-center hover:bg-muted/10 rounded transition-colors cursor-pointer"
+            className="ml-0 relative w-9 h-9 flex items-center justify-center hover:bg-muted/10 rounded transition-colors cursor-pointer"
           >
             <AnimatePresence mode="wait" initial={false}>
               {isDark ? (
@@ -148,6 +163,15 @@ export default function Header() {
                 {label}
               </Link>
             ))}
+
+            <Link
+              href="/rss.xml"
+              target="_blank"
+              onClick={() => setMenuOpen(false)}
+              className="text-lg font-semibold text-orange-500 hover:text-orange-600 transition"
+            >
+              RSS Feed
+            </Link>
 
             <div className="mt-6 flex items-start flex-col gap-3">
               <span className="text-lg font-semibold text-muted transition">Switch Theme</span>

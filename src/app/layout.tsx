@@ -4,6 +4,7 @@ import { Poppins, JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import Umami from "@/components/analytics/Umami";
+import SEOSchema from "@/components/SEO/SEOSchema";
 
 // Load JustSans locally
 const justSans = localFont({
@@ -197,8 +198,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${justSans.variable} ${poppins.variable} ${jetbrainsMono.variable} ${plusJakartaSans.variable} ${melangitSans.variable} ${pogoniaSans.variable}`}>
+      <link rel="alternate" type="application/rss+xml" title="RSS Feed" href="/rss.xml" />
       <body className="font-sans antialiased">
         <Umami />
+        <SEOSchema />
         <Providers>
           {children}
         </Providers>

@@ -30,6 +30,7 @@
     "react-feather": "^2.0.10",
     "rehype-pretty-code": "^0.14.1",
     "remark-frontmatter": "^5.0.0",
+    "rss": "^1.2.2",
     "shiki": "^3.4.2",
     "three": "^0.176.0"
   },
@@ -41,6 +42,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/react-vertical-timeline-component": "^3.3.6",
+    "@types/rss": "^0.0.32",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
     "tailwindcss": "^4",

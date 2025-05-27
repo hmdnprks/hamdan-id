@@ -7,6 +7,9 @@ export async function compileMdx(source: string) {
     title: string;
     description?: string;
     date?: string;
+    excerpt?: string;
+    coverImage?: string;
+
   }>({
     source,
     options: {
