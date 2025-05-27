@@ -145,9 +145,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-jakarta-sans",
 });
 
-// app/layout.tsx
-
-export const metadata = {
+export const metadata: Metadata = {
   title: 'Hamdan Prakoso – Software Engineer & Visual Storyteller',
   description: 'Building fast, expressive web experiences with a creative soul. Specializing in frontend engineering, performance, and digital storytelling through code, photography, and travel.',
   keywords: [
