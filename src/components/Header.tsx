@@ -4,9 +4,10 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
-import { Moon, Sun, Menu, X, Rss } from "lucide-react";
+import { Moon, Sun, Menu, X, Rss, Search } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import clsx from "clsx";
+import SearchModal from "./search/SearchModal";
 
 const navLinks = [
   { href: "/about", label: "About" },
@@ -20,6 +21,8 @@ export default function Header() {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+
   const isDark = theme === "dark";
 
   useEffect(() => setMounted(true), []);
@@ -35,6 +38,21 @@ export default function Header() {
     setTheme(isNowDark ? "dark" : "light");
     playSound(isNowDark ? "/sounds/switch-off.wav" : "/sounds/switch-on.wav");
   };
+
+  useEffect(() => {
+    const handleKey = (e: KeyboardEvent) => {
+      if ((e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) || (e.key.toLowerCase() === 'k' && (e.metaKey || e.ctrlKey))) {
+        e.preventDefault();
+        setSearchOpen(true);
+      }
+      if (e.key === 'Escape') {
+        setSearchOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleKey);
+    return () => window.removeEventListener("keydown", handleKey);
+  }, []);
 
   return (
     <header className="w-full px-6 py-4 flex justify-between items-center border-b border-gray-200 dark:border-gray-800 relative z-50">
@@ -83,6 +101,20 @@ export default function Header() {
             </div>
           );
         })}
+
+        <button
+          onClick={() => setSearchOpen(true)}
+          aria-label="Search"
+          className="relative w-9 h-9 flex items-center justify-center hover:bg-muted/10 rounded transition-colors cursor-pointer"
+        >
+          <motion.div
+            initial={{ scale: 1 }}
+            whileHover={{ scale: 1.2 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
+            <Search className="w-5 h-5 text-primary" />
+          </motion.div>
+        </button>
 
         <Link
           href="/rss.xml"
@@ -164,6 +196,16 @@ export default function Header() {
               </Link>
             ))}
 
+            <button
+              onClick={() => {
+                setMenuOpen(false);
+                setSearchOpen(true);
+              }}
+              className="text-lg font-semibold text-primary hover:text-primary/70 transition"
+            >
+              Search
+            </button>
+
             <Link
               href="/rss.xml"
               target="_blank"
@@ -224,6 +266,8 @@ export default function Header() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }

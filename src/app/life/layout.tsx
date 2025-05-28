@@ -13,9 +13,7 @@ export default function LifeRootLayout({ children }: { children: React.ReactNode
   return (
     <>
       {isInterPage ? <HeaderInter /> : <Header />}
-      <PageTransition>
-        <main className="min-h-screen">{children}</main>
-      </PageTransition>
+      <main className="min-h-screen">{children}</main>
       <Footer />
     </>
   );
