@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "next-sitemap && tsx src/scripts/generateSearchIndex.ts"
+    "postbuild": "next-sitemap && tsx src/scripts/generateSearchIndex.ts",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@giscus/react": "^3.1.0",
@@ -37,6 +38,8 @@
     "three": "^0.176.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@eslint/eslintrc": "^3",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4",
@@ -47,8 +50,17 @@
     "@types/rss": "^0.0.32",
     "eslint": "^9",
     "eslint-config-next": "15.3.2",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-unused-imports": "^4.1.4",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.5.2",
+    "prettier": "3.5.3",
     "tailwindcss": "^4",
     "tsx": "^4.19.4",
     "typescript": "^5"
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": "eslint --fix",
+    "*.{js,ts,tsx,css,md,html,json}": "prettier --cache --write"
   }
 }
