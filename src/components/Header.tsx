@@ -12,11 +12,11 @@ import SearchModal from './search/SearchModal';
 const navLinks = [
   { href: '/about', label: 'About' },
   { href: '/blog', label: 'Blog' },
-  { href: '/projects', label: 'Projects' },
+  // { href: '/projects', label: 'Projects' },
   { href: '/life', label: 'Life' },
 ];
 
-export default function Header() {
+export default function Header({ isSticky = true }: { isSticky?: boolean }) {
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
@@ -32,6 +32,7 @@ export default function Header() {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (!isSticky) return;
       const currentScroll = window.scrollY;
       const isDesktop = window.innerWidth >= 640;
 
@@ -94,7 +95,8 @@ export default function Header() {
   return (
     <header
       className={clsx(
-        'sticky top-0 z-50 w-full px-6 py-4 flex justify-between items-center border-transparent bg-background transition-transform duration-300',
+        isSticky && 'sticky top-0 z-50',
+        'w-full px-6 py-4 flex justify-between items-center border-transparent bg-background transition-transform duration-300',
         !showHeader && 'sm:-translate-y-full',
       )}
     >
