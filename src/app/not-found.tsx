@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { Ghost, ArrowLeft, Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-import { useEffect, useState } from "react";
+import { motion } from 'framer-motion';
+import Link from 'next/link';
+import { Ghost, ArrowLeft, Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
+import { useEffect, useState } from 'react';
 
 const suggestions = [
-  { label: "Explore My Blog", href: "/blog" },
-  { label: "Check Out Projects", href: "/projects" },
-  { label: "Discover My Life Interests", href: "/life" },
+  { label: 'Explore My Blog', href: '/blog' },
+  { label: 'Check Out Projects', href: '/projects' },
+  { label: 'Discover My Life Interests', href: '/life' },
 ];
 
 export default function NotFoundPage() {
@@ -22,14 +22,14 @@ export default function NotFoundPage() {
     setSuggestion(suggestions[Math.floor(Math.random() * suggestions.length)]);
   }, []);
 
-  const isDark = theme === "dark";
+  const isDark = theme === 'dark';
 
   return (
     <main className="h-screen w-full flex flex-col items-center justify-center bg-[var(--background)] text-[var(--foreground)] px-6">
       <motion.div
         initial={{ opacity: 0, scale: 0.5, rotate: -15 }}
         animate={{ opacity: 1, scale: 1, rotate: 0 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20 }}
+        transition={{ type: 'spring', stiffness: 260, damping: 20 }}
         className="bg-[var(--surface)] p-6 rounded-full shadow-xl mb-6"
       >
         <Ghost className="w-12 h-12 text-[var(--foreground)] animate-bounce" />
@@ -50,7 +50,8 @@ export default function NotFoundPage() {
         transition={{ delay: 0.5 }}
         className="text-lg text-[var(--muted)] text-center max-w-md mb-6"
       >
-        Either the page you&apos;re looking for doesn’t exist, or it’s gone to watch an Inter match. 🖤💙
+        Nope. Nada. Not here. We triple-checked. <br /> We can&apos;t find what you&apos;re looking
+        for.
       </motion.p>
 
       <motion.div
@@ -82,14 +83,18 @@ export default function NotFoundPage() {
 
       {mounted && (
         <motion.button
-          onClick={() => setTheme(isDark ? "light" : "dark")}
+          onClick={() => setTheme(isDark ? 'light' : 'dark')}
           className="mt-4 p-3 rounded-full dark:bg-[var(--surface)] bg-amber-100 hover:bg-[var(--muted)] transition"
           initial={{ rotate: -90, scale: 0, opacity: 0 }}
           animate={{ rotate: 0, scale: 1, opacity: 1 }}
           transition={{ delay: 1.1, duration: 0.5 }}
           aria-label="Toggle Theme"
         >
-          {isDark ? <Moon className="w-5 h-5 text-yellow-400" /> : <Sun className="w-5 h-5 text-yellow-600" />}
+          {isDark ? (
+            <Moon className="w-5 h-5 text-yellow-400" />
+          ) : (
+            <Sun className="w-5 h-5 text-yellow-600" />
+          )}
         </motion.button>
       )}
     </main>
