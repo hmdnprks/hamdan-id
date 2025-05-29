@@ -1,8 +1,8 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
 @custom-variant dark (&:where(.dark, .dark *));
 
-
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @layer base {
   :root {
@@ -10,11 +10,11 @@
     /* Light background */
     --surface: #f8f8f8;
     /* Optional: light surface tone */
-    --primary: #3C5B6F;
+    --primary: #3c5b6f;
     --dark: #153448;
     --foreground: #1a1a1a;
     /* Dark text for light mode */
-    --muted: #5C5C5C;
+    --muted: #5c5c5c;
 
     --font-sans: var(--font-pogonia-sans), var(--font-poppins), sans-serif;
 
@@ -30,12 +30,12 @@
   }
 
   .dark {
-    --background: #0F1C24;
-    --surface: #2B3A45;
-    --primary: #3C5B6F;
-    --dark: #DFD0B8;
-    --foreground: #F0F0F0;
-    --muted: #A3A3A3;
+    --background: #0f1c24;
+    --surface: #2b3a45;
+    --primary: #3c5b6f;
+    --dark: #dfd0b8;
+    --foreground: #f0f0f0;
+    --muted: #a3a3a3;
   }
 
   /* Inter Milan Theme */

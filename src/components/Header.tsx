@@ -1,19 +1,19 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
-import { Moon, Sun, Menu, X, Rss, Search } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
-import clsx from "clsx";
-import SearchModal from "./search/SearchModal";
+import { useEffect, useRef, useState } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import { useTheme } from 'next-themes';
+import { Moon, Sun, Menu, X, Rss, Search } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import clsx from 'clsx';
+import SearchModal from './search/SearchModal';
 
 const navLinks = [
-  { href: "/about", label: "About" },
-  { href: "/blog", label: "Blog" },
-  { href: "/projects", label: "Projects" },
-  { href: "/life", label: "Life" },
+  { href: '/about', label: 'About' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/projects', label: 'Projects' },
+  { href: '/life', label: 'Life' },
 ];
 
 export default function Header() {
@@ -22,26 +22,63 @@ export default function Header() {
   const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [showHeader, setShowHeader] = useState(true);
+  const lastScrollY = useRef(0);
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
-  const isDark = theme === "dark";
+  const isDark = theme === 'dark';
 
   useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScroll = window.scrollY;
+      const isDesktop = window.innerWidth >= 640;
+
+      const goingDown = currentScroll > lastScrollY.current;
+      const goingUp = currentScroll < lastScrollY.current;
+
+      if (isDesktop) {
+        if (goingDown && currentScroll > 50) {
+          setShowHeader(false);
+        }
+
+        if (goingUp) {
+          setShowHeader(true);
+        }
+
+        if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+        scrollTimeout.current = setTimeout(() => {
+          setShowHeader(true);
+        }, 200);
+      }
+
+      // Always store last scroll
+      lastScrollY.current = currentScroll;
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const playSound = (file: string) => {
     const audio = new Audio(file);
     audio.volume = 0.5;
-    audio.play().catch((e) => console.warn("Audio play failed:", e));
+    audio.play().catch((e) => console.warn('Audio play failed:', e));
   };
 
   const toggleSwitch = () => {
     const isNowDark = !isDark;
-    setTheme(isNowDark ? "dark" : "light");
-    playSound(isNowDark ? "/sounds/switch-off.wav" : "/sounds/switch-on.wav");
+    setTheme(isNowDark ? 'dark' : 'light');
+    playSound(isNowDark ? '/sounds/switch-off.wav' : '/sounds/switch-on.wav');
   };
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
-      if ((e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) || (e.key.toLowerCase() === 'k' && (e.metaKey || e.ctrlKey))) {
+      if (
+        (e.key === '/' && !e.metaKey && !e.ctrlKey && !e.altKey) ||
+        (e.key.toLowerCase() === 'k' && (e.metaKey || e.ctrlKey))
+      ) {
         e.preventDefault();
         setSearchOpen(true);
       }
@@ -50,12 +87,17 @@ export default function Header() {
       }
     };
 
-    window.addEventListener("keydown", handleKey);
-    return () => window.removeEventListener("keydown", handleKey);
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
   }, []);
 
   return (
-    <header className="w-full px-6 py-4 flex justify-between items-center border-b border-gray-200 dark:border-gray-800 relative z-50">
+    <header
+      className={clsx(
+        'sticky top-0 z-50 w-full px-6 py-4 flex justify-between items-center border-transparent bg-background transition-transform duration-300',
+        !showHeader && 'sm:-translate-y-full',
+      )}
+    >
       <Link href="/" className="text-lg font-semibold tracking-tight">
         hamdan.id
       </Link>
@@ -63,15 +105,15 @@ export default function Header() {
       {/* Desktop Nav */}
       <nav className="hidden sm:flex relative items-center gap-6 text-sm">
         {navLinks.map(({ href, label }) => {
-          const isActive = pathname === href || pathname.startsWith(href + "/");
+          const isActive = pathname === href || pathname.startsWith(href + '/');
 
           return (
             <div key={href} className="relative group px-2">
               <Link
                 href={href}
                 className={clsx(
-                  "relative z-10 py-1 transition-colors",
-                  isActive ? "text-primary font-bold" : "hover:text-primary text-muted"
+                  'relative z-10 py-1 transition-colors',
+                  isActive ? 'text-primary font-bold' : 'hover:text-primary text-muted',
                 )}
               >
                 {label}
@@ -94,7 +136,7 @@ export default function Header() {
                     strokeLinejoin="round"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
+                    transition={{ duration: 0.5, ease: 'easeOut' }}
                   />
                 </motion.svg>
               )}
@@ -110,7 +152,7 @@ export default function Header() {
           <motion.div
             initial={{ scale: 1 }}
             whileHover={{ scale: 1.2 }}
-            transition={{ type: "spring", stiffness: 300 }}
+            transition={{ type: 'spring', stiffness: 300 }}
           >
             <Search className="w-5 h-5 text-primary" />
           </motion.div>
@@ -125,7 +167,7 @@ export default function Header() {
           <motion.div
             initial={{ rotate: 0 }}
             whileHover={{ rotate: 20 }}
-            transition={{ type: "spring", stiffness: 200, damping: 10 }}
+            transition={{ type: 'spring', stiffness: 200, damping: 10 }}
           >
             <Rss className="w-5 h-5 text-orange-500 dark:text-orange-400" />
           </motion.div>
@@ -144,7 +186,7 @@ export default function Header() {
                   initial={{ rotate: -90, scale: 0, opacity: 0 }}
                   animate={{ rotate: 0, scale: 1, opacity: 1 }}
                   exit={{ rotate: 90, scale: 0, opacity: 0 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
                   className="absolute"
                 >
                   <Moon className="w-5 h-5" />
@@ -155,7 +197,7 @@ export default function Header() {
                   initial={{ rotate: 90, scale: 0, opacity: 0 }}
                   animate={{ rotate: 0, scale: 1, opacity: 1 }}
                   exit={{ rotate: -90, scale: 0, opacity: 0 }}
-                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
                   className="absolute"
                 >
                   <Sun className="w-5 h-5" />
@@ -226,7 +268,7 @@ export default function Header() {
                 {/* Toggle knob container (optional background) */}
                 <motion.div
                   layout
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   className="absolute w-full h-full rounded-full"
                 />
 
@@ -234,7 +276,7 @@ export default function Header() {
                 <motion.div
                   layout
                   animate={{ x: isDark ? 24 : 0 }} // move right if dark
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   className="w-6 h-6 rounded-full bg-primary flex items-center justify-center text-white z-10"
                 >
                   <AnimatePresence mode="wait" initial={false}>
