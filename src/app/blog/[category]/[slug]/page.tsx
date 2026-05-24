@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import LikeButton from "@/components/atomic/LikeButton";
-import GiscusComments from "@/components/GiscusComments";
-import BlogPostSchema from "@/components/SEO/BlogPostSchema";
-import CanonicalTag from "@/components/SEO/CanonicalTag";
-import { getPostBySlug } from "@/lib/getMdxPost";
-import fs from "fs/promises";
-import path from "path";
+import LikeButton from '@/components/atomic/LikeButton';
+import GiscusComments from '@/components/GiscusComments';
+import BlogPostSchema from '@/components/SEO/BlogPostSchema';
+import CanonicalTag from '@/components/SEO/CanonicalTag';
+import { getPostBySlug } from '@/lib/getMdxPost';
+import { getAllPosts } from '@/lib/getAllPosts';
 
 export default async function BlogPostPage({ params }: any) {
   const { category, slug } = params;
@@ -14,7 +13,15 @@ export default async function BlogPostPage({ params }: any) {
   return (
     <>
       <CanonicalTag />
-      <BlogPostSchema frontmatter={{ ...frontmatter, slug: params.slug, category: params.category, excerpt: frontmatter.excerpt || "", date: frontmatter.date || "" }} />
+      <BlogPostSchema
+        frontmatter={{
+          ...frontmatter,
+          slug: params.slug,
+          category: params.category,
+          excerpt: frontmatter.excerpt || '',
+          date: frontmatter.date || '',
+        }}
+      />
 
       <article className="prose prose-invert max-w-3xl mx-auto py-10">
         <h1 className="text-4xl font-bold">{frontmatter.title}</h1>
@@ -35,33 +42,9 @@ export default async function BlogPostPage({ params }: any) {
 }
 
 export async function generateStaticParams() {
-  const contentDir = path.join(process.cwd(), "src/content");
-  const entries = await fs.readdir(contentDir, { withFileTypes: true });
-
-  const params: { category: string; slug: string }[] = [];
-
-  for (const entry of entries) {
-    if (entry.isDirectory()) {
-      const category = entry.name;
-      const files = await fs.readdir(path.join(contentDir, category));
-
-      for (const file of files) {
-        if (file.endsWith(".mdx")) {
-          params.push({
-            category,
-            slug: file.replace(/\.mdx$/, ""),
-          });
-        }
-      }
-    }
-
-    if (entry.isFile() && entry.name.endsWith(".mdx")) {
-      params.push({
-        category: "general",
-        slug: entry.name.replace(/\.mdx$/, ""),
-      });
-    }
-  }
-
-  return params;
+  const posts = await getAllPosts();
+  return posts.map((p) => ({
+    category: p.category,
+    slug: p.slug,
+  }));
 }
