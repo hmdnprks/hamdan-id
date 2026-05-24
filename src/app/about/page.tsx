@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import Lenis from '@studio-freight/lenis';
+import Lenis from 'lenis';
 import ContactCTA from '@/components/about/ContactCTA';
 import AboutHero from '@/components/about/AboutHero';
 import AboutIdentity from '@/components/about/AboutIdentity';
