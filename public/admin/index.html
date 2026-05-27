@@ -6,6 +6,88 @@
     <title>Content Manager</title>
   </head>
   <body>
+    <script>
+      window.CMS_CONFIG = {
+        backend: {
+          name: 'github',
+          repo: 'hmdnprks/hamdan-id',
+          branch: 'main',
+          base_url: window.location.origin,
+          auth_endpoint: '/api/auth',
+          site_domain: window.location.hostname,
+        },
+        publish_mode: 'editorial_workflow',
+        media_folder: 'public/images',
+        public_folder: '/images',
+        site_url: window.location.origin,
+        display_url: window.location.origin,
+        logo_url: '/favicon.ico',
+        collections: [
+          {
+            name: 'blog',
+            label: 'Blog Posts',
+            label_singular: 'Post',
+            folder: 'src/content',
+            create: true,
+            slug: '{{slug}}',
+            preview_path: 'blog/{{category}}/{{slug}}',
+            sortable_fields: ['date', 'title'],
+            nested: { depth: 2 },
+            fields: [
+              {
+                label: 'Title',
+                name: 'title',
+                widget: 'string',
+                required: true,
+              },
+              {
+                label: 'Publish Date',
+                name: 'date',
+                widget: 'datetime',
+                format: 'YYYY-MM-DD',
+                date_format: 'YYYY-MM-DD',
+                time_format: false,
+                required: true,
+              },
+              {
+                label: 'Description',
+                name: 'description',
+                widget: 'text',
+                required: false,
+              },
+              {
+                label: 'Excerpt',
+                name: 'excerpt',
+                widget: 'text',
+                required: false,
+                hint: 'Short summary shown in blog cards',
+              },
+              {
+                label: 'Cover Image',
+                name: 'coverImage',
+                widget: 'image',
+                required: false,
+                hint: 'Shown on blog card and post header',
+              },
+              {
+                label: 'Category',
+                name: 'category',
+                widget: 'string',
+                required: false,
+                hint: 'e.g. dev, life, travel',
+              },
+              {
+                label: 'Body',
+                name: 'body',
+                widget: 'markdown',
+                required: true,
+                hint: 'Write your post content here. Use --- for horizontal rules.',
+              },
+            ],
+          },
+        ],
+      };
+    </script>
     <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
   </body>
 </html>
