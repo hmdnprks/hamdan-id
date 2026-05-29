@@ -1,17 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
-  const { searchParams, origin } = new URL(req.url);
+  const { searchParams } = new URL(req.url);
   const code = searchParams.get('code');
 
   const clientId = process.env.DECAP_CLIENT_ID;
   const clientSecret = process.env.DECAP_CLIENT_SECRET;
+
+  // Use the Host header to get the actual domain (Vercel's req.url may contain internal URL)
+  const host = req.headers.get('host') || 'www.hamdan.id';
+  const protocol = req.headers.get('x-forwarded-proto') || 'https';
+  const origin = `${protocol}://${host}`;
 
   console.log('[Decap Auth]', {
     hasClientId: !!clientId,
     hasClientSecret: !!clientSecret,
     code: !!code,
     origin,
+    host,
     url: req.url,
   });
 
