@@ -7,6 +7,14 @@ export async function GET(req: NextRequest) {
   const clientId = process.env.DECAP_CLIENT_ID;
   const clientSecret = process.env.DECAP_CLIENT_SECRET;
 
+  console.log('[Decap Auth]', {
+    hasClientId: !!clientId,
+    hasClientSecret: !!clientSecret,
+    siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
+    code: !!code,
+    url: req.url,
+  });
+
   // Step 1: No code yet — redirect to GitHub OAuth authorization
   if (!code) {
     if (!clientId) {
