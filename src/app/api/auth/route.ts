@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
-  const { searchParams } = new URL(req.url);
+  const { searchParams, origin } = new URL(req.url);
   const code = searchParams.get('code');
 
   const clientId = process.env.DECAP_CLIENT_ID;
@@ -10,8 +10,8 @@ export async function GET(req: NextRequest) {
   console.log('[Decap Auth]', {
     hasClientId: !!clientId,
     hasClientSecret: !!clientSecret,
-    siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
     code: !!code,
+    origin,
     url: req.url,
   });
 
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
       return new Response('DECAP_CLIENT_ID is not configured.', { status: 500 });
     }
 
-    const redirectUri = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://hamdan.id'}/api/auth`;
+    const redirectUri = `${origin}/api/auth`;
     const githubAuthUrl = new URL('https://github.com/login/oauth/authorize');
     githubAuthUrl.searchParams.set('client_id', clientId);
     githubAuthUrl.searchParams.set('redirect_uri', redirectUri);
@@ -35,7 +35,7 @@ export async function GET(req: NextRequest) {
     return new Response('OAuth credentials are not configured.', { status: 500 });
   }
 
-  const redirectUri = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://hamdan.id'}/api/auth`;
+  const redirectUri = `${origin}/api/auth`;
 
   const tokenResponse = await fetch('https://github.com/login/oauth/access_token', {
     method: 'POST',
@@ -71,7 +71,7 @@ export async function GET(req: NextRequest) {
           if (window.opener) {
             window.opener.postMessage(
               { token: "${data.access_token}", provider: "github" },
-              "${process.env.NEXT_PUBLIC_SITE_URL || 'https://hamdan.id'}"
+              "${origin}"
             );
             window.close();
           } else {
